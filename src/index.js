@@ -2,15 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'modern-normalize/modern-normalize.css';
 import './index.css';
-// import Profile from '../src/components/profile/Profile';
-// import Statistics from './components/statistics/Statistics';
-// import statisticalData from  '../src/components/statistics/statistical-data.json';
-
 import App from './App';
+import store from './redux/store';
+import { myAction } from './redux/app-actions';
+import { Provider } from 'react-redux';
+console.log(store);
+console.log(store.getState());
+// console.log(store.dispatch(myAction));
+store.dispatch(myAction);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
