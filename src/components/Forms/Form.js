@@ -2,6 +2,11 @@ import React from 'react';
 import { Component } from 'react';
 import s from './Form.module.css';
 import { v4 as uuid } from 'uuid';
+import { connect } from 'react-redux';
+import {
+  addContacts,
+  deleteContacts,
+} from '../../redux/app/app-phonebook-actions';
 
 class Form extends Component {
   state = {
@@ -25,16 +30,17 @@ class Form extends Component {
 
   handleSabmit = e => {
     e.preventDefault();
+    const contactId = uuid();
     const { name, number, association } = this.state;
-    this.setState({
-      // id,
+    const contactItem = {
+      id: contactId,
       name,
       number,
       association,
-    });
-    // this.setState({ contactPhone });
-    this.props.OnSubmit(this.state);
-
+    };
+    this.setState({ contactItem });
+    this.props.OnSubmit(contactItem);
+    this.props.onAdd(contactItem); //Дизпачим продукет в редакс
     this.resetForm();
   };
 
@@ -43,6 +49,7 @@ class Form extends Component {
   };
 
   render() {
+    // console.log("onADD", this.props.onAdd)
     return (
       <form onSubmit={this.handleSabmit} className={s.m}>
         <h2 className={s.title}>Phonebook</h2>
@@ -121,4 +128,19 @@ class Form extends Component {
   }
 }
 
-export default Form;
+//  export default Form;
+
+// const mapStateToProps = (store) => {
+//   return {
+//       contactProps: store.contact,
+
+//   }
+// };
+
+const mapDispatchToProps = dispatch => {
+  // console.log("dispatch", dispatch);
+  return {
+    onAdd: contactR => dispatch(addContacts(contactR)),
+  };
+};
+export default connect(null, mapDispatchToProps)(Form);

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-
+import { addContacts, deleteContacts } from './app-phonebook-actions';
 const initState = [
   {
     id: 'id-1',
@@ -28,6 +28,20 @@ const initState = [
 ];
 
 const contactList = (state = initState, action) => {
+  console.log('action.payload', action.payload);
+  console.log('state', state);
+  switch (action.type) {
+    case 'contacts/add':
+      return [...state, action.payload];
+      break;
+    case 'deleteContacts':
+      return state.filter(contact => contact.id !== action.payload.id);
+      break;
+
+    default:
+      break;
+  }
+  console.log('state', state);
   return state;
 };
 
