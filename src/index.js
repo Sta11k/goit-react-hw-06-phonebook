@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import 'modern-normalize/modern-normalize.css';
 import './index.css';
 import App from './App';
-import store from './redux/store';
+import { store } from './redux/store';
 import { myAction } from './redux/app/app-phonebook-actions';
 import { Provider } from 'react-redux';
 console.log(store);
