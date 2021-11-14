@@ -28,20 +28,18 @@ const initState = [
 ];
 
 const contactList = (state = initState, action) => {
-  console.log('action.payload', action.payload);
+  // console.log('action.payload', action.payload);
   console.log('state', state);
   switch (action.type) {
     case 'contacts/add':
       return [...state, action.payload];
-      break;
-    case 'deleteContacts':
+    case 'contacts/delete':
       return state.filter(contact => contact.id !== action.payload.id);
-      break;
 
     default:
       break;
   }
-  console.log('state', state);
+
   return state;
 };
 
@@ -49,7 +47,14 @@ const contactFilter = (state = '', action) => {
   return state;
 };
 
+// const contactFilter = (state = '', { payload }) => {
+//   return payload;
+// };
 export const phonebookReducer = combineReducers({
   contact: contactList,
   filter: contactFilter,
 });
+
+// const productFilter = (state = '', { payload }) => {
+//   return payload;
+// };

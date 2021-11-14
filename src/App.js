@@ -3,6 +3,8 @@ import { Component } from 'react';
 import Form from './components/Forms/Form';
 import TodoList from './components/Todolist/Todolist';
 import Filter from './components/Filter/Filter';
+import { connect } from 'react-redux';
+//import { addContacts, deleteContacts, contactFilter} from '../../redux/app/app-phonebook-actions';
 // import { connect } from 'react-redux';
 //import { contact, filter } from './redux/app/app-phonebook-reducer';
 //  import { addContacts, deleteContacts } from './redux/app/app-phonebook-actions.js';
@@ -57,12 +59,12 @@ class App extends Component {
         });
   };
 
-  deleteContact = contactId => {
-    // console.log(contactId);
-    this.setState(({ contactsOll }) => ({
-      contactsOll: contactsOll.filter(contact => contact.id !== contactId),
-    }));
-  };
+  // deleteContact = contactId => {
+  //   // console.log(contactId);
+  //   this.setState(({ contactsOll }) => ({
+  //     contactsOll: contactsOll.filter(contact => contact.id !== contactId),
+  //   }));
+  // };
 
   changeFilter = e => {
     this.setState({ filter: e.currentTarget.value });
@@ -80,26 +82,46 @@ class App extends Component {
   render() {
     const { contactsOll, filter } = this.state;
     const visibleContacts = this.getVisibleContacts();
-    // console.log(this.state.contactsOll);
+    console.log(contactsOll);
 
     return (
       <div className="App">
         <Form OnSubmit={this.hendlerSubmitForm} />
-        {contactsOll.length > 1 && (
-          <Filter value={filter} onChange={this.changeFilter} />
-        )}
+        {<Filter value={filter} onChange={this.changeFilter} />}
 
         <TodoList
           contactsOll={visibleContacts}
-          onDeleteContact={this.deleteContact}
+          // onDeleteContact={this.deleteContact}
         />
       </div>
     );
   }
 }
 
-export default App;
+//  export default App;
 
+const mapStateToProps = state => {
+  console.log('store.contactProps', state.contactsOll);
+  return {
+    contactsOll: state.contact,
+  };
+};
+
+// const mapDispatchToProps = dispatch => {
+
+//   return {
+//     onDeleteContact: id => dispatch(deleteContacts(id)),
+//   };
+// };
+export default connect(mapStateToProps, null)(App);
+// const mapStateToProps = dispatch => {
+
+//   return {
+//     onDeleteContact: id => dispatch(deleteContacts(id)),
+//   };
+// };
+
+// export default connect(mapStateToProps, null)(App);
 // const mapStateToProps = (store) => {
 //   return {
 //       contactProps: store.contact,
