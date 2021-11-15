@@ -8,7 +8,7 @@ export const deleteContacts = id => ({
   payload: { id },
 });
 
-// export const contactFilter = value => ({
-//   type: 'filter/value',
-//   payload: value,
-// });
+export const changeFilter = value => ({
+  type: 'filter/value',
+  payload: value,
+});

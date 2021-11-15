@@ -1,16 +1,9 @@
 import s from './Todolist.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  addContacts,
-  deleteContacts,
-} from '../../redux/app/app-phonebook-actions';
-// import { Form } from '../Forms/Form';
-// import { App } from '../../App';
-// import React, { Component } from 'react';
+import { deleteContacts } from '../../redux/app/app-phonebook-actions';
 
 function Todolist({ contactsOll, onDeleteContact }) {
-  // console.log("contactProps",contactProps)
   return (
     <ul className={s.contacts__list}>
       {contactsOll.map(({ id, name, number, association }) => {
@@ -48,13 +41,14 @@ Todolist.propTypes = {
   onDeleteContact: PropTypes.func.isRequired,
 };
 
-//  export default Form;
-
 const mapStateToProps = state => {
-  console.log('store.contactProps', state.contactProps);
-  return {
-    contactsOll: state.contact,
-  };
+  const { filter } = state;
+  const optimizedFilter = filter.toLowerCase();
+  const vizibleCOntacts = state.contact.filter(contact =>
+    contact.name.toLowerCase().includes(optimizedFilter),
+  );
+
+  return { contactsOll: vizibleCOntacts };
 };
 
 const mapDispatchToProps = dispatch => {

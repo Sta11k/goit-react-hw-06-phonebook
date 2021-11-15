@@ -3,10 +3,7 @@ import { Component } from 'react';
 import s from './Form.module.css';
 import { v4 as uuid } from 'uuid';
 import { connect } from 'react-redux';
-import {
-  addContacts,
-  deleteContacts,
-} from '../../redux/app/app-phonebook-actions';
+import { addContacts } from '../../redux/app/app-phonebook-actions';
 
 class Form extends Component {
   state = {
@@ -39,7 +36,7 @@ class Form extends Component {
       association,
     };
     this.setState({ contactItem });
-    this.props.OnSubmit(contactItem);
+
     this.props.onAdd(contactItem); //Дизпачим продукет в редакс
     this.resetForm();
   };
@@ -49,7 +46,6 @@ class Form extends Component {
   };
 
   render() {
-    // console.log("onADD", this.props.onAdd)
     return (
       <form onSubmit={this.handleSabmit} className={s.m}>
         <h2 className={s.title}>Phonebook</h2>

@@ -1,7 +1,7 @@
 import s from './Filter.module.css';
 import PropTypes from 'prop-types';
-//import { connect } from 'react-redux';
-//import { contactFilter } from '../../redux/app/app-phonebook-reducer.js';
+import { connect } from 'react-redux';
+import { changeFilter } from '../../redux/app/app-phonebook-actions';
 function Filter({ value, onChange }) {
   return (
     <label className={s.label}>
@@ -20,13 +20,11 @@ Filter.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
+const mapStateToProps = state => ({
+  value: state.filter,
+});
 
-export default Filter;
-
-// const mapDispatchToProps = dispatch => {
-
-//   return {
-//     onChange: value => dispatch(contactFilter(value)),
-//   };
-// };
-// export default connect(null, mapDispatchToProps)(Filter);
+const mapDispatchToProps = dispatch => ({
+  onChange: event => dispatch(changeFilter(event.currentTarget.value)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

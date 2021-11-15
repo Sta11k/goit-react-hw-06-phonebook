@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { addContacts, deleteContacts } from './app-phonebook-actions';
+// import { addContacts, deleteContacts } from './app-phonebook-actions';
 const initState = [
   {
     id: 'id-1',
@@ -27,34 +27,30 @@ const initState = [
   },
 ];
 
-const contactList = (state = initState, action) => {
+const contactList = (state = initState, { type, payload }) => {
   // console.log('action.payload', action.payload);
-  console.log('state', state);
-  switch (action.type) {
+  // console.log('state', state);
+  switch (type) {
     case 'contacts/add':
-      return [...state, action.payload];
+      return [...state, payload];
     case 'contacts/delete':
-      return state.filter(contact => contact.id !== action.payload.id);
+      return state.filter(contact => contact.id !== payload.id);
 
     default:
-      break;
+      return state;
   }
-
-  return state;
 };
 
-const contactFilter = (state = '', action) => {
-  return state;
+const filter = (state = '', { type, payload }) => {
+  switch (type) {
+    case 'filter/value':
+      return payload;
+    default:
+      return state;
+  }
 };
 
-// const contactFilter = (state = '', { payload }) => {
-//   return payload;
-// };
 export const phonebookReducer = combineReducers({
   contact: contactList,
-  filter: contactFilter,
+  filter,
 });
-
-// const productFilter = (state = '', { payload }) => {
-//   return payload;
-// };
