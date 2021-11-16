@@ -1,12 +1,13 @@
 import { createAction } from '@reduxjs/toolkit';
-import { v4 as uuid } from 'uuid';
-const contactId = uuid();
+// import { v4 as uuid } from 'uuid';
+// const contactId = uuid();
+import shortid from 'shortid';
 
 export const addContacts = createAction(
   'contacts/add',
   (name, number, association) => ({
     payload: {
-      id: contactId,
+      id: shortid.generate(),
       name,
       number,
       association,
