@@ -18,47 +18,57 @@ function Form() {
   const [number, setNumber] = useState('');
   const [association, setAssociation] = useState('Other');
 
-  const contactCheck = () => {
+  // const contactCheck = () => {
+
+  //     const repeatName = contacts.reduce(
+  //     (acc, contact) => [...acc, contact.name],
+  //     [],
+  //   );
+  //   const repeatNumber = contacts.reduce(
+  //     (acc, contact) => [...acc, contact.number],
+  //     [],
+  //   );
+
+  //   if (repeatName.includes(name) || repeatNumber.includes(number)) {
+
+  //    alert(`${name} ${number} is already `);
+  //     return;
+  //   }
+
+  //   if (name === '' || number === '') {
+  //     alert(`Enter data`);
+  //     return;
+  //   }
+
+  // };
+
+  const handleSabmit = e => {
+    e.preventDefault();
     const repeatName = contacts.reduce(
       (acc, contact) => [...acc, contact.name],
       [],
     );
-    // const repeatNumber = contacts.reduce(
-    //   (acc, contact) => [...acc, contact.number],
-    //   [],
-    // );
+    const repeatNumber = contacts.reduce(
+      (acc, contact) => [...acc, contact.number],
+      [],
+    );
 
-    // if (repeatName.includes(name) || repeatNumber.includes(number)) {
-    //   alert(`${name}${number} is already `);
-    // }
-
-    if (repeatName.includes(name)) {
-      alert(`${name}${number} is already `);
+    if (repeatName.includes(name) || repeatNumber.includes(number)) {
+      alert(`${name} ${number} is already `);
+      return;
     }
 
     if (name === '' || number === '') {
       alert(`Enter data`);
+      return;
     }
-  };
 
-  const handleSabmit = e => {
-    e.preventDefault();
-
+    onSubmit(name, number, association);
     setName('');
     setNumber('');
     setAssociation('Other');
-
-    if (contactCheck()) {
-      return;
-    }
-    onSubmit(name, number, association); //Дизпачим продукет в редакс
+    //Дизпачим продукет в редакс
   };
-
-  // const resetForm = () => {
-  //   setName('');
-  //   setNumber('');
-  //   setAssociation('Other');
-  // };
 
   return (
     <form onSubmit={handleSabmit} className={s.m}>
